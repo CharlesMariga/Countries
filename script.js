@@ -27,12 +27,14 @@ const renderCountry = country => {
   countriesContainer.style.opacity = '1';
 };
 
-const whereAmI = async function (country) {
-  const res = await fetch(`https://restcountries.com/v2/name/${country}`);
-  console.log(res);
+const whereAmI = async function () {
+  const response = await fetch('https://api.ipregistry.co/?key=tryout');
+  const countryData = await response.json();
+  const country = countryData.location.country.name;
 
+  const res = await fetch(`https://restcountries.com/v2/name/${country}`);
   const data = await res.json();
   renderCountry(data[0]);
 };
 
-whereAmI('kenya');
+whereAmI();
